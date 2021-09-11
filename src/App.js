@@ -123,9 +123,9 @@ function App() {
           <AdminRoute path="/orderlist" component={OrderAdminListScreen}></AdminRoute>
           <AdminRoute path="/userlist" component={UserAdminListScreen}></AdminRoute>
           <AdminRoute path="/user/:id/edit" component={UserAdminEditScreen}></AdminRoute>
-          <Route path="/mention_Legal" component={MentionLegalScreen} exact></Route>
-          <Route path="/qui_sommes_nous" component={AboutScreen} exact></Route>
-          <Route path="/application" component={AppScreen} exact></Route>
+          <Route path="/mention_Legal" component={MentionLegalScreen}></Route>
+          <Route path="/qui_sommes_nous" component={AboutScreen}></Route>
+          <Route path="/application" component={AppScreen}></Route>
           <Route path="/" component={HomeScreen} exact></Route>
         </main>
         <footer className="row center">
