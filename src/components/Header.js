@@ -19,7 +19,7 @@ export default function Header() {
     SetShowLinks(!showLinks)
   }
     return (
-        <div>
+      <div className="grid-container">
             <header className="row">
           <nav className={`navbar ${showLinks ? "show-nav" : "hide-nav"}`}>
             <div className="navbar__logo">
