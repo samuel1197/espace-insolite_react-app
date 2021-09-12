@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { signout } from '../actions/userActions';
@@ -13,58 +13,76 @@ export default function Header() {
     const signoutHandler = () =>{
         dispatch(signout());
     }
+
+    const [showLinks, SetShowLinks] = useState(false);
+  const handleShowlinks = () => {
+    SetShowLinks(!showLinks)
+  }
     return (
         <div>
             <header className="row">
-                <div>
-                    <Link className="brand" to="/"><img className="logo1" src={img1} alt="" /></Link>
-                </div>
-                <div>
-                    <Link to="/qui_sommes_nous">Qui Sommes-nous ?</Link>
-                    <Link to="/application">Application</Link>
-                    <Link to="/cart">Panier
-                    {cartItems.length > 0 && (
+          <nav className={`navbar ${showLinks ? "show-nav" : "hide-nav"}`}>
+            <div className="navbar__logo">
+              <Link className="brand" to="/"><img className="logo1" src={img1} alt="" /></Link>
+            </div>
+            <ul className="navbar__links">
+              <li className="navbar__item">
+                <Link className="navbar__link" to="/qui_sommes_nous">Qui Sommes-nous ?</Link>
+              </li>
+              <li className="navbar__item">
+              <Link className="navbar__link" to="/application">Application</Link>
+              </li>
+              <li className="navbar__item">
+                <Link className="navbar__link" to="/cart">Panier
+                  {cartItems.length > 0 && (
                     <span className='badge'>{cartItems.length}</span>
-                    )}
-                    </Link>
-                    {
+                  )}
+                </Link>
+              </li>
+              <li className="navbar__item">
+                <div>
+                  {
                     userInfo ? (
-                        <div className="dropdown">
+                      <div className="dropdown">
                         <Link to="#">{userInfo.firstname} <i className="fa fa-caret-down"></i></Link>
                         <ul className="dropdown-content">
-                            <li><Link to='/orderhistory'>Historique des réservations</Link></li>
-                            <li><Link to='/profile'>Profil utilisateur</Link></li>
-                            <li><Link to="#signout" onClick={signoutHandler}>Se deconnecter</Link></li>
-                            
+                          <li className="dropburger"><Link to='/orderhistory'>Historique des réservations</Link></li>
+                          <li className="dropburger"><Link to='/profile'>Profil utilisateur</Link></li>
+                          <li className="dropburger"><Link to="#signout" onClick={signoutHandler}>Se deconnecter</Link></li>
                         </ul>
-                        </div>
+                      </div>
                     ) :
                     (
-                        <Link to="/signin">Connexion</Link>
+                      <Link className="navbar__link" to="/signin">Connexion</Link>
                     )}
                     {userInfo && userInfo.isAdmin && (
-                        <div className="dropdown">
-                        <Link to="#admin">
-                            Admin {' '} <i className="fa fa-caret-down"></i>
+                      <div className="dropdown">
+                        <Link  to="#admin">
+                          Admin {' '} <i className="fa fa-caret-down"></i>
                         </Link>
                         <ul className="dropdown-content">
-                            <li>
+                          <li className="dropburger">
                             <Link to="/dashboard">Tableau de bord</Link>
-                            </li>
-                            <li>
+                          </li>
+                          <li className="dropburger">
                             <Link to="/locationlist">Locations</Link>
-                            </li>
-                            <li>
+                          </li>
+                          <li className="dropburger">
                             <Link to="/orderlist">Réservations</Link>
-                            </li>
-                            <li>
+                          </li>
+                          <li className="dropburger">
                             <Link to="/userlist">Utilisateurs</Link>
-                            </li>
+                          </li>
                         </ul> 
-                        </div>
+                      </div>
                     )}
                 </div>
-            </header>
+              </li>
+            </ul>
+            <button className="navbar__burger" onClick={handleShowlinks}><span className="burger-bar"></span></button>
+          </nav>
+          
+        </header>
         </div>
     )
 }
