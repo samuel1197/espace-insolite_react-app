@@ -10,7 +10,7 @@ export default function HomeScreen() {
   const dispatch = useDispatch();
   const locationList = useSelector((state) => state.locationList);
   const { loading, error, locations } = locationList;
-
+  const returnArray = Array.from(locations)
   useEffect(() => {
     dispatch(listLocations());
   }, [dispatch]);
@@ -31,7 +31,7 @@ export default function HomeScreen() {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <div className="row center">
-          {locations.map(location => (
+          {returnArray.map(location => (
             <Location key={location._id} location={location}></Location>
           ))}
         </div>
